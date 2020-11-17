@@ -1,0 +1,83 @@
+{% extends 'player.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'playlist.css' %}?{% now " U " %}"> 
+{% endblock %}
+
+{% block home %}
+{% endblock %}
+
+{% block search %}
+{% endblock %}
+
+{% block liked-song %}
+active 
+{% endblock %}
+
+{% block main %}
+<div class="playlist__banner">
+
+	<div class="playlist__left">
+		<div class="playlist__album">
+			<img src="https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png" alt="" class="playlist__img">
+        </div>
+    </div>
+    <div class="playlist__right">
+        <div style='font-weight: 700;font-size: 12px;'>PLAYLIST</div>
+        <div class="playlist__name">Liked Songs</div>
+        <div>{{ request.user }}<span class='grey_text'> . {{user_playlist.count}} Songs<span></div>
+    </div>
+    
+</div>
+<div class="playlist__optionbar">
+     <!-- <div class="albumplay" onclick='playSong("{{ forloop.counter0 }}","{{ playlist.2 }}")'><img
+                                    src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png"
+                                    alt=""></img></div> -->
+     <div class="playlist__play">
+       <img src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png" alt=""></img>
+      </div>
+     
+</div>
+
+<div class="playlist__list">
+    <div class="playlist__header" >
+        <div class="playlist__headerTitle"># TITLE</div>
+        <div class="playlist__headerAlbum">ALBUM</div>
+        <div class="playlist__headerDate">DATE ADDED</div>
+        <div class="playlist__headerDuration">
+        <img src="https://img.icons8.com/pastel-glyph/344/clock--v1.png" alt="">
+        </div>
+    </div>
+    <hr class="divider">
+    
+    
+    <div class="playlist__songlist">
+    {% for song in user_playlist %}
+    <form action="" method="get">
+        <div class="playlist__song playlist__row" onclick='playSong("{{ song.song_youtube_id }}","false","true")'>
+        <div class="playlist__headerTitle">
+          <img class="playlist__albumimg" src="{{song.song_albumsrc}}" alt =''/>
+
+          <div class="playlist__songTitle ellipsis_one_line">
+          {{song.song_title}}
+          </div>
+          <textarea name="song" id="song_name_delete" cols="1" rows="1">{{song.song_title}}</textarea>
+
+          </div>
+        <div class="playlist__headerAlbum ellipsis_one_line">{{song.song_channel}}</div>
+        <div class="playlist__headerDate">{{song.song_date_added}}</div>
+        <div class="playlist__headerDuration">
+        {{song.song_dur}}
+        <button type='submit' class="delete"><img src="https://cdn.discordapp.com/attachments/768083738848133130/777588678028951572/delete-icon-28.jpg" alt=""</button>
+        </div>
+    </div>
+    </form>
+    {% endfor %}
+    </div>
+    
+</div>
+
+
+{% endblock %}
+

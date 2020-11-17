@@ -1,0 +1,468 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'player.css' %}?{% now " U " %}"> {% block css %} {% endblock %}
+	<title>Spotify | Home</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+	</script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css">
+<script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
+</head>
+
+<body>
+
+
+
+<div class="grid-container">
+	<div class="sidebar">
+
+		<img class="logo"
+            src="https://cdn.discordapp.com/attachments/768083738848133130/768372618880483328/spotify.svg"></img>
+
+        <div class="options-section">
+            <div class="options home {% block home %}
+   active {% endblock %}">
+                <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path class='ops'
+                        d="M448 463.746h-149.333v-149.333h-85.334v149.333h-149.333v-315.428l192-111.746 192 110.984v316.19z"
+                        fill="grey"></path>
+                </svg>
+                <a class='label' href="/">Home</a>
+            </div>
+            <div class="options search {% block search %}{% endblock %}" onclick="document.getElementById('searchBar').focus();">
+                <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path class='ops'
+                        d="M349.714 347.937l93.714 109.969-16.254 13.969-93.969-109.969q-48.508 36.825-109.207 36.825-36.826 0-70.476-14.349t-57.905-38.603-38.603-57.905-14.349-70.476 14.349-70.476 38.603-57.905 57.905-38.603 70.476-14.349 70.476 14.349 57.905 38.603 38.603 57.905 14.349 70.476q0 37.841-14.73 71.619t-40.889 58.921zM224 377.397q43.428 0 80.254-21.461t58.286-58.286 21.461-80.254-21.461-80.254-58.286-58.285-80.254-21.46-80.254 21.46-58.285 58.285-21.46 80.254 21.46 80.254 58.285 58.286 80.254 21.461z"
+                        fill="grey" fill-rule="evenodd"></path>
+                </svg>
+                <span class='label'>Search</span>
+            </div>
+
+            <div class="options library">
+                <svg viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path class='ops'
+                        d="M291.301 81.778l166.349 373.587-19.301 8.635-166.349-373.587zM64 463.746v-384h21.334v384h-21.334zM192 463.746v-384h21.334v384h-21.334z"
+                        fill="grey"></path>
+                </svg>
+                <a href="/playlist" class='label'>Your Library</a>
+            </div>
+
+            <!-- brk change -->
+            <div class="options2 ">
+                <span class='label'>Playlists</span>
+            </div>
+            <div class="options create {% block liked-song %}
+   {% endblock %}">
+                <img height="40px" class="likedImg" src="https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png"
+                    alt=""></img>
+                <a href="/playlist" class='label'>Liked Songs</a>
+            </div>
+        </div>
+
+        <div class="ytbPlayerCont" id="ytbPlayerCont" onclick="iframeToggle()">
+          {% block iframe %}
+            <iframe class="ytbPlayer" id="video"
+                src="https://www.youtube-nocookie.com/embed/{{song}}?enablejsapi=1&rel=0&iv_load_policy=3&fs=0&controls=0&disablekb=1" allow='autoplay; fullscreen;'
+                 frameborder="0"></iframe>
+          {% endblock %}
+        </div>
+    </div>
+
+
+
+    <div class="navbar">
+        <div class="nav-btn-container">
+            <a href='/' class='nav-btn'>
+                <svg viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path class='ops'
+                        d="M448 463.746h-149.333v-149.333h-85.334v149.333h-149.333v-315.428l192-111.746 192 110.984v316.19z"
+                        ></path>
+                </svg>
+            </a>
+            <a class='nav-btn' href="/playlist">
+              <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+</svg>
+            </a>
+            <form action="/search" method="get" name="search-form">
+                <div class="searchCont">
+            <svg onClick="document.forms['search-form'].submit();" class='searchBarIcon' viewBox="0 0 512 512" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path class='ops'
+                        d="M349.714 347.937l93.714 109.969-16.254 13.969-93.969-109.969q-48.508 36.825-109.207 36.825-36.826 0-70.476-14.349t-57.905-38.603-38.603-57.905-14.349-70.476 14.349-70.476 38.603-57.905 57.905-38.603 70.476-14.349 70.476 14.349 57.905 38.603 38.603 57.905 14.349 70.476q0 37.841-14.73 71.619t-40.889 58.921zM224 377.397q43.428 0 80.254-21.461t58.286-58.286 21.461-80.254-21.461-80.254-58.286-58.285-80.254-21.46-80.254 21.46-58.285 58.285-21.46 80.254 21.46 80.254 58.285 58.286 80.254 21.461z"
+                        fill="black" fill-rule="evenodd"></path>
+              </svg>
+            <input class="searchBar" placeholder="Search for song" type="text" name="search" id="searchBar">
+            </div>
+            
+            </form>
+        </div>
+        
+
+        <a class="profile-container" href="/logout">
+            <button class="profile">
+                <div class="profile-pic">
+                    <svg width="16" height="16" fill="white" viewBox="0 0 18 20" xmlns="http://www.w3.org/2000/svg"
+                        data-testid="user-icon">
+                        <path
+                            d="M15.216 13.717L12 11.869C11.823 11.768 11.772 11.607 11.757 11.521C11.742 11.435 11.737 11.267 11.869 11.111L13.18 9.57401C14.031 8.58001 14.5 7.31101 14.5 6.00001V5.50001C14.5 3.98501 13.866 2.52301 12.761 1.48601C11.64 0.435011 10.173 -0.0879888 8.636 0.0110112C5.756 0.198011 3.501 2.68401 3.501 5.67101V6.00001C3.501 7.31101 3.97 8.58001 4.82 9.57401L6.131 11.111C6.264 11.266 6.258 11.434 6.243 11.521C6.228 11.607 6.177 11.768 5.999 11.869L2.786 13.716C1.067 14.692 0 16.526 0 18.501V20H1V18.501C1 16.885 1.874 15.385 3.283 14.584L6.498 12.736C6.886 12.513 7.152 12.132 7.228 11.691C7.304 11.251 7.182 10.802 6.891 10.462L5.579 8.92501C4.883 8.11101 4.499 7.07201 4.499 6.00001V5.67101C4.499 3.21001 6.344 1.16201 8.699 1.00901C9.961 0.928011 11.159 1.35601 12.076 2.21501C12.994 3.07601 13.5 4.24301 13.5 5.50001V6.00001C13.5 7.07201 13.117 8.11101 12.42 8.92501L11.109 10.462C10.819 10.803 10.696 11.251 10.772 11.691C10.849 12.132 11.115 12.513 11.503 12.736L14.721 14.585C16.127 15.384 17.001 16.884 17.001 18.501V20H18.001V18.501C18 16.526 16.932 14.692 15.216 13.717Z">
+                        </path>
+                    </svg>
+                </div>
+                <span class='username hide-onhover'>{{ request.user }}</span>
+                <span class='logout username'>Logout</span>
+            </button>
+
+
+        </a>
+    </div>
+
+
+  
+    <div class="main" data-simplebar>
+        {% block main %}
+        <div class="homecontainer">
+            {% for playlist in CONTAINER %}
+            <div class="category">
+                <div class="catTitle">
+                    <span class='label catName underline-on-hover'>{{ playlist.0 }}</span>
+                    <span class='label seeall underline-on-hover'>SEE ALL >></span>
+                </div>
+                <div class="cardContainer">
+                    {% for card in playlist.1 %}
+                    <div class="card c1">
+                        <div class="albumcover">
+                            <img class="albumimg" src="{{ card.0 }}" alt="" srcset=""></img>
+                            <div class="albumplay" onclick='playSong("{{ forloop.counter0 }}","{{ playlist.2 }}")'><img
+                                    src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png"
+                                    alt=""></img></div>
+                        </div>
+                        <span class='label albumtitle bond-to-two-lines'>{{ card.1 }}</span>
+                        <span class='label albumauthor bond-to-two-lines'>By {{ card.2 }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        {% endblock %}
+    </div>
+
+
+
+
+
+
+    <div class="playbar">
+        <div class="current-playing">
+
+            <div class="cur-info">
+                <div class='label cur-title underline-on-hover bond-to-two-lines' id="songName" onclick="iframeToggle()">Heer Ranjha</div>
+                <div class='label'>
+                    <div class='label cur-author underline-on-hover bond-to-two-lines' id='channel'>BB Ki Vines</div>
+                </div>
+
+            </div>
+            <form id='like-form'>
+              {% csrf_token %}
+            <div type='submit' class="like-icon mainicons" id="like-icon">
+                <img class="heart" id="stroke"
+                    src="https://cdn.discordapp.com/attachments/768083738848133130/773960377683673198/Vector1.svg"
+                    alt="">
+                <img class="heart hidden" id="filled"
+                    src="https://cdn.discordapp.com/attachments/768083738848133130/773960848972185650/Vector2.svg"
+                    alt="">
+            </div>
+            </form>
+        </div>
+
+
+        <div class="playback">
+            <div class="playOptions">
+                <div onclick="goToStart()" class="mainicons">
+                    <img class="mainicons"
+                        src="https://cdn.discordapp.com/attachments/768083738848133130/773142728145371146/skip-back.svg"
+                        alt=""></img></div>
+
+                <div id='playicon' class="mainicons playicon">
+                    <img class="mainicons playicon"
+                        src="https://cdn.discordapp.com/attachments/768083738848133130/773142731144560640/play-circle.svg"
+                        alt=""></img></div>
+
+                <div id='pauseicon' class="mainicons playicon">
+                    <img class="mainicons playicon"
+                        src="https://cdn.discordapp.com/attachments/768083738848133130/773873949082910751/pause-circle.svg"
+                        alt=""></img></div>
+                <div class="mainicons" onclick="nextSong()">
+                    <img class="mainicons"
+                        src="https://cdn.discordapp.com/attachments/768083738848133130/773142729714696212/skip-forward.svg"
+                        alt=""></img></div>
+            </div>
+
+            <div class="slider">
+                <span id="currentDur"></span>
+                <div class="range-slider">
+                    <input id="progressBar" class="range-slider__range" type="range" value="0" min="0" max="100">
+                </div>
+                <span id="duration"></span>
+            </div>
+
+        </div>
+
+
+        <div class="play-options">
+            <img id='vol-icon' class='mainicons' src="" alt="">
+            <div id='volume' class="range-slider">
+                <input id='volumeBar' oninput="setVolume()" class="range-slider__range" type="range" value="100" min="0"
+                    max="500">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    // global variable for the player
+    var heart = document.getElementById('like-icon');
+    heart.addEventListener("click", function () {
+        document.getElementById('stroke').classList.toggle('hidden');
+        document.getElementById('filled').classList.toggle('hidden');
+        setTimeout(function(){
+            document.getElementById('stroke').classList.toggle('hidden');
+            document.getElementById('filled').classList.toggle('hidden');
+        }, 500); 
+    });
+
+
+    function iframeToggle() {
+        document.getElementById('ytbPlayerCont').classList.toggle('hidden');
+    };
+
+
+    var player;
+    var pauseButton = document.getElementById("pauseicon");
+    var playButton = document.getElementById("playicon");
+    pauseButton.classList.toggle("hidden");
+    document.getElementById("progressBar").value = 0;
+    var progressBar = document.getElementById("progressBar");
+
+
+    var dur;
+
+    // this function gets called when API is ready to use
+    function onYouTubePlayerAPIReady() {
+        // create the global player from the specific iframe (#video)
+        player = new YT.Player('video', {
+            events: {
+                // call this function when player is ready to use
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    }
+
+    function str_pad_left(string, pad, length) {
+        return (new Array(length + 1).join(pad) + Math.round(string)).slice(-length);
+    }
+
+
+    var iframe = document.getElementById("video");
+   
+
+
+    function playSong(id, playlistId, liked=false) {
+        if (liked){
+            iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&controls=0&disablekb=1&enablejsapi=1&iv_load_policy=3&vq=medium`;
+            play();
+        } else{
+        iframe.src = `https://www.youtube-nocookie.com/embed/?listType=playlist&list=${playlistId}&index=${id}&autoplay=1&controls=0&disablekb=1&enablejsapi=1&iv_load_policy=3&vq=medium`;
+        play();
+        }
+    };
+
+    function nextSong(){
+        player.nextVideo();
+        play();
+    }
+
+
+
+    document.getElementById('songName').innerHTML = name;
+    document.getElementById('channel').innerHTML = channel; 
+
+    function play() {
+        if (pauseButton.classList.contains("hidden")) {
+            playButton.classList.toggle("hidden");
+            pauseButton.classList.toggle("hidden");
+        };
+        player.playVideo();
+    };
+
+    function pause() {
+        if (playButton.classList.contains("hidden")) {
+            pauseButton.classList.toggle("hidden");
+            playButton.classList.toggle("hidden");
+        };
+        player.pauseVideo();
+    };
+
+
+    function infoUpdate() {
+      try{
+        dur = player.getDuration();
+        let minutes = Math.floor(dur / 60);
+        let seconds = dur - minutes * 60;
+        let finalTime = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+        document.getElementById("duration").innerHTML = finalTime;
+        var nowPlaying = player.getVideoData();
+        document.getElementById('songName').innerHTML = nowPlaying['title'];
+        document.getElementById('channel').innerHTML = nowPlaying['author'];
+      }
+      catch{
+      }
+    };
+
+
+    function onPlayerReady(event) {
+        playButton.addEventListener("click", play);
+        pauseButton.addEventListener("click", pause);
+        setVolume();
+        onPlayerStateChange(event);
+    }
+
+
+
+
+
+
+    function goToStart() {
+        player.seekTo(0);
+        progressBar.value = 0;
+        player.previousVideo();
+        play();
+    }
+
+
+    function setVolume() {
+        let v = Math.floor(document.getElementById("volumeBar").value / 5);
+        player.setVolume(v);
+        vol_ico = document.getElementById('vol-icon');
+        if (v == 0) {
+            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773923517091676190/v0.png';
+        }
+        else if (v < 33) {
+            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773921824635093013/v1.png';
+        }
+        else if (v < 66) {
+            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773921822492065843/v2.png';
+        }
+        else {
+            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773921819879014421/v3.png';
+        }
+
+    }
+
+progressBar.addEventListener('input', function () {
+    var seek = progressBar.value;
+    finalSeek = (seek * dur) / 100;
+    player.seekTo(finalSeek);
+    play()
+})
+
+    function onPlayerStateChange(event) {
+        console.log('this');
+        mytimer = setInterval(function () {
+            infoUpdate();
+            
+            dur = player.getDuration();
+            var playerCurrentTime = player.getCurrentTime();
+            var playerTimeDifference = (playerCurrentTime / dur) * 100;
+            progressBar.value = playerTimeDifference;
+            let minutes = Math.floor(playerCurrentTime / 60);
+            let seconds = playerCurrentTime - (minutes * 60);
+            let currentDur = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+            document.getElementById("currentDur").innerHTML = currentDur;
+        }, 1000);
+
+        
+
+        iframe.addEventListener("DOMAttrModified", function(event) {
+            if (event.attrName == "src") {
+            console.log('this');
+            }
+        });
+        if (event.data == YT.PlayerState.PLAYING) {
+            progressBar.addEventListener('input', function () {
+                var seek = progressBar.value;
+                finalSeek = (seek * dur) / 100;
+                player.seekTo(finalSeek);
+            });
+
+            
+
+            mytimer = setInterval(function () {
+                infoUpdate();
+                dur = player.getDuration();
+                var playerCurrentTime = player.getCurrentTime();
+                var playerTimeDifference = (playerCurrentTime / dur) * 100;
+                progressBar.value = playerTimeDifference;
+                let minutes = Math.floor(playerCurrentTime / 60);
+                let seconds = playerCurrentTime - (minutes * 60);
+                let currentDur = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+                document.getElementById("currentDur").innerHTML = currentDur;
+            }, 1000);
+        }
+    }
+
+
+
+
+    // Inject YouTube API script
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
+    $(document).on('click', '#like-form', function(e){
+      e.preventDefault();
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = dd + '/' + mm + '/' + yyyy;
+      console.log('that',{
+          'title':$("#songName").text(),
+          'channel': $("#channel"),
+          'date': today,
+          'duration': $("#duration").text(),
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        })
+
+
+        
+        var youtube_video_id = player.getVideoData()['video_id'];
+      $.ajax({
+        type:'POST',
+        url:window.location.pathname,
+        data:{
+          'title':$("#songName").text(),
+          'songid':youtube_video_id,
+          'channel': $("#channel").text(),
+          'date': today,
+          'duration': $("#duration").text(),
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+        },
+        
+      })
+
+    });
+</script>
+</body>
+
+</html>

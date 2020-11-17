@@ -1,0 +1,54 @@
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block css %}
+	<link rel="stylesheet" href="{% static "formStyle.css" %}">
+  {% endblock %}
+	<title>Spotify | Log-in</title>
+</head>
+
+<body>
+    
+		
+			<div class="signup_header">
+                <a href="" target="_blank">
+				<img
+                    src="https://cdn.discordapp.com/attachments/768083738848133130/768372618880483328/spotify.svg"></img>
+                    </a>
+            </div>
+        </a>
+        <div class="signup_body">
+            <form class="login_form" method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="login-username" class="label">
+                    Email address or username 
+                </label>
+
+                <input type="text" class="form_input" pattern="[A-Za-z0-9.@_-e]+" name="username" placeholder="Email address or username" required>
+                <label for="login-username" class="label">
+                    Password
+                </label>
+                <input type="password" class="form_input" name="password" placeholder="Password" required>
+                {% if not case %}
+                <span style="color:#f79862;
+                             padding-bottom:20px;
+                             text-align:center;">Username or password invalid</span>
+                {% endif %}
+                <button class='btn btn_log_in' type="submit">Log in</button>
+                <div class="divider"></div>
+                <p class='label center-align'>Don't have an account?</p>
+            <a class='btn btn_sign_up' href="/signup">Sign Up for spotify</a>
+            </form>
+        </div>
+
+        <!-- <div class="signin_body">
+            
+        </div> -->
+
+    </body>
+</body>
+
+</html>

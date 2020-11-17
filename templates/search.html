@@ -1,0 +1,37 @@
+{% extends 'player.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'search.css' %}?{% now " U " %}"> 
+{% endblock %}
+
+{% block home %}
+{% endblock %}
+
+{% block search %}
+active
+{% endblock %}
+
+{% block main %}
+    <div class="homecontainer">
+        {% for playlist in CONTAINER %}
+        <div class="category">
+            <div class="cardContainer">
+                {% for card in playlist %}
+                <div class="card c1">
+                    <div class="albumcover">
+                        <img class="albumimg" src="{{ card.thumbnails.0 }}" alt="" srcset=""></img>
+                        <div class="albumplay" onclick='playSong("{{ card.id }}","none",true)'><img
+                                src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png"
+                                alt=""></img></div>
+                    </div>
+                    <span class='label albumtitle bond-to-two-lines'>{{ card.title }}</span>
+                    <span class='label albumauthor bond-to-two-lines'>By {{ card.channel }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
