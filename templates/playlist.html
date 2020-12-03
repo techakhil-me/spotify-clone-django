@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'playlist.css' %}?{% now " U " %}"> 
+<link rel="stylesheet" href="{% static 'playlist.css' %}?{% now " U " %}">
 {% endblock %}
 
 {% block home %}
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block liked-song %}
-active 
+active
 {% endblock %}
 
 {% block main %}
@@ -28,17 +28,20 @@ active
         <div class="playlist__name">Liked Songs</div>
         <div>{{ request.user }}<span class='grey_text'> . {{user_playlist.count}} Songs<span></div>
     </div>
-    
+
 </div>
+
+
+<!--play button-->
+
 <div class="playlist__optionbar">
-     <!-- <div class="albumplay" onclick='playSong("{{ forloop.counter0 }}","{{ playlist.2 }}")'><img
-                                    src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png"
-                                    alt=""></img></div> -->
-     <div class="playlist__play">
-       <img src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png" alt=""></img>
-      </div>
-     
+<!--     <div class="playlist__play">-->
+<!--       <img src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png" alt=""></img>-->
+<!--      </div>-->
+
 </div>
+
+
 
 <div class="playlist__list">
     <div class="playlist__header" >
@@ -50,8 +53,8 @@ active
         </div>
     </div>
     <hr class="divider">
-    
-    
+
+
     <div class="playlist__songlist">
     {% for song in user_playlist %}
     <form action="" method="get">
@@ -75,7 +78,7 @@ active
     </form>
     {% endfor %}
     </div>
-    
+
 </div>
 
 
