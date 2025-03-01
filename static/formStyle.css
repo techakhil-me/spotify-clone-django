@@ -27,13 +27,13 @@ body {
 }
 
 .signup_header img {   
-  /* height: 80%;
-  max-height: 60px;
-  min-height: 40px; */
-  height: 80%;
-  max-width: 200px;
-  min-height: 40px; 
-  transform: translateX(-8px);
+  /* height: 80%; */
+  height: 60px;
+  /* min-height: 40px; */
+  /* height: 80%; */
+  /* max-width: 200px;
+  min-height: 40px;  */
+  /* transform: translateX(-8px); */
 }
 
 .signup_body,

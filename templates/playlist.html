@@ -72,8 +72,10 @@ active
         <div class="playlist__headerDate">{{song.song_date_added}}</div>
         <div class="playlist__headerDuration">
         {{song.song_dur}}
-        <button type='submit' class="delete"><img src="https://cdn.discordapp.com/attachments/768083738848133130/777588678028951572/delete-icon-28.jpg" alt=""</button>
-        </div>
+        <button type="submit" class="delete">
+            <img src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/svgs/solid/trash.svg" alt="Delete">
+          </button>
+                  </div>
     </div>
     </form>
     {% endfor %}

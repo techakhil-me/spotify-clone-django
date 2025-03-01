@@ -69,7 +69,7 @@ input:invalid {
     padding-left: 24px;
     height: 40px;
     width:132px;
-    filter: invert(1);
+    /* filter: invert(1); */
 }
 
 
@@ -664,7 +664,7 @@ input:invalid {
     height: auto;
 }
 
-.like-icon > img{
+.like-icon > svg{
   width: 20px;
   margin-left: 10px;
 }

@@ -26,7 +26,7 @@
 	<div class="sidebar">
 
 		<img class="logo"
-            src="https://cdn.discordapp.com/attachments/768083738848133130/768372618880483328/spotify.svg"></img>
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1280px-Spotify_logo_with_text.svg.png"></img>
 
         <div class="options-section">
             <div class="options home {% block home %}
@@ -142,7 +142,7 @@
                         <div class="albumcover">
                             <img class="albumimg" src="{{ card.0 }}" alt="" srcset=""></img>
                             <div class="albumplay" onclick='playSong("{{ forloop.counter0 }}","{{ playlist.2 }}")'><img
-                                    src="https://cdn.discordapp.com/attachments/768083738848133130/769476261181128734/image_1.png"
+                                    src="https://freepngimg.com/thumb/play_button/25569-6-play-button-transparent-thumb.png"
                                     alt=""></img></div>
                         </div>
                         <span class='label albumtitle bond-to-two-lines'>{{ card.1 }}</span>
@@ -175,12 +175,13 @@
             <form id='like-form'>
               {% csrf_token %}
             <div type='submit' class="like-icon mainicons" id="like-icon">
-                <img class="heart" id="stroke"
-                    src="https://cdn.discordapp.com/attachments/768083738848133130/773960377683673198/Vector1.svg"
-                    alt="">
-                <img class="heart hidden" id="filled"
-                    src="https://cdn.discordapp.com/attachments/768083738848133130/773960848972185650/Vector2.svg"
-                    alt="">
+                <svg class="heart" id="stroke" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                  </svg>
+                  <svg class="heart hidden" id="filled" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-suit-heart" fill="#18d860" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/>
+                  </svg>
+               
             </div>
             </form>
         </div>
@@ -190,21 +191,22 @@
             <div class="playOptions">
                 <div onclick="goToStart()" class="mainicons">
                     <img class="mainicons"
-                        src="https://cdn.discordapp.com/attachments/768083738848133130/773142728145371146/skip-back.svg"
+                    style="transform: rotateY(180deg);"
+                        src="https://freepngimg.com/download/icon/arrow/6687-next-button.svg"
                         alt=""></img></div>
 
                 <div id='playicon' class="mainicons playicon">
                     <img class="mainicons playicon"
-                        src="https://cdn.discordapp.com/attachments/768083738848133130/773142731144560640/play-circle.svg"
+                        src="https://freepngimg.com/thumb/play_button/25569-6-play-button-transparent-thumb.png"
                         alt=""></img></div>
 
                 <div id='pauseicon' class="mainicons playicon">
                     <img class="mainicons playicon"
-                        src="https://cdn.discordapp.com/attachments/768083738848133130/773873949082910751/pause-circle.svg"
+                        src="https://freepngimg.com/download/icon/audio/7213-pause-button-round.svg"
                         alt=""></img></div>
                 <div class="mainicons" onclick="nextSong()">
                     <img class="mainicons"
-                        src="https://cdn.discordapp.com/attachments/768083738848133130/773142729714696212/skip-forward.svg"
+                        src="https://freepngimg.com/download/icon/arrow/6687-next-button.svg"
                         alt=""></img></div>
             </div>
 
@@ -385,17 +387,19 @@
         player.setVolume(v);
         vol_ico = document.getElementById('vol-icon');
         if (v == 0) {
-            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773923517091676190/v0.png';
-        }
-        else if (v < 33) {
-            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773921824635093013/v1.png';
-        }
-        else if (v < 66) {
-            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773921822492065843/v2.png';
-        }
-        else {
-            vol_ico.src = 'https://cdn.discordapp.com/attachments/768083738848133130/773921819879014421/v3.png';
-        }
+    vol_ico.src = 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/svgs/solid/volume-mute.svg';
+}
+else if (v < 33) {
+    vol_ico.src = 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/svgs/solid/volume-down.svg';
+}
+else if (v < 66) {
+    vol_ico.src = 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/svgs/solid/volume-up.svg';
+}
+else {
+    vol_ico.src = 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/svgs/solid/volume-up.svg';
+}
+
+
 
     }
 
